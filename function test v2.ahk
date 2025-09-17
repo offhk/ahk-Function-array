@@ -24,14 +24,14 @@ varRc := 1
 ; errlist := getHsErrList(varRc)
 ; msgbox, % errlist
 
+; getHsNumAndGateAndJersey(varRc)
+show1 := getHsNumAndGateAndJersey(varRc)
+for k,v in show1 {
+    msgbox, % k " " v
+}
 
-; show1 := getHsNumAndGateAndJersey(varRc)
-; for k,v in show1 {
-;     msgbox, % k " " v`
-; }
-
-msgbox,,show1, % show1[1]
-
+; msgbox,,show1, % show1[1][1]
+; msgbox,,, % horseNumAndGateAndJersey[1][1]
 
 return
 
@@ -224,6 +224,8 @@ return errorHorseList
 
 ;=================================================================================================================================== getHsNumAndGateAndJersey
 
+
+
 getHsNumAndGateAndJersey(rcParam) {
 
    horseNumAndGateAndJersey := {}
@@ -267,22 +269,70 @@ loop, 3
         {
         ; URLDownloadToFile, https://racing.hkjc.com/racing/content/Images/RaceColor/%field4_hsCode%.gif, %A_ScriptDir%\jersey\jersey%field4_hsCode%.gif
 
-        MsgBox, , Show field, % "horse number = " field3_hsenum "`n`ngate = " field5_gate "`n`nhorse code = " field4_hsCode ,
+        ; MsgBox, , Show field, % "horse number = " field3_hsenum "`n`ngate = " field5_gate "`n`nhorse code = " field4_hsCode ,
         ; horseNumAndGateAndJersey[field3_hsenum] := {(field5_gate),(field4_hsCode)}
         ; horseNumAndGateAndJersey[field3_hsenum] := [field5_gate,field4_hsCode]
 
         aa := field5_gate
         bb := field4_hsCode
-        horseNumAndGateAndJersey[field3_hsenum] := [(field5_gate),(field4_hsCode)]
+        ; horseNumAndGateAndJersey[field3_hsenum] := (field5_gate)
+        horseNumAndGateAndJersey[field3_hsenum] := {"gate":faa,"code":bb}
         }
 
     }
 return horseNumAndGateAndJersey
 }
 
+/*
 
 
 
+getHsNumAndGateAndJersey(rcParam) {
+
+    horseNumAndGateAndJersey := {}
+
+    url_get := "https://www.scmp.com/sport/racing/racecard/" . rcParam
+
+    ; Fetch webpage content
+    WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    WebRequest.Open("GET", url_get, false)
+    WebRequest.SetTimeouts(1000, 1000, 1000, 1000)
+    WebRequest.Send()
+    InOutData := WebRequest.ResponseText
+
+    ; Remove script tags cautiously (non-greedy)
+    InOutData := RegExReplace(InOutData, "<script[^>]*?>.*?</script>", "", "s")
+
+    ; Extract race table data block between <div class="race-table"> and <table class="remarks">
+    if !RegExMatch(InOutData, "s)<div class=`"race-table`">(.*?)<table class=`"remarks`">", data_match) {
+        MsgBox, Could not find race table data
+        return horseNumAndGateAndJersey
+    }
+
+    data2 := data_match1
+
+    ; Regex to match each horse's info block iteratively
+    pos := 1
+    Loop {
+        ; Match horse block (horse number, horse code, gate)
+        if !RegExMatch(data2, "s)<td[^>]*class=`"horse_number`">(\d+)</td>.*?/sport/racing/stats/horses/(\d+).*?<td align=`"center`">(\d+)</td>", match, pos) {
+            break
+        }
+
+        hseNum := match1
+        hsCode := match2
+        gate := match3
+
+        ; Store in object
+        horseNumAndGateAndJersey[hseNum] := {"gate": gate, "jersey": hsCode}
+
+        pos := match.Pos + StrLen(match.Value)
+    }
+
+    return horseNumAndGateAndJersey
+}
+
+*/
 
 
 
