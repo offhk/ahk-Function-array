@@ -24,9 +24,9 @@ varRc := 1
 ; errlist := getHsErrList(varRc)
 ; msgbox, % errlist
 
-getHsNumAndGateAndJersey(varRc)
+; getHsNumAndGateAndJersey(varRc)
 
-; returnedArray  := getHsNumAndGateAndJersey(varRc)
+returnedArray  := getHsNumAndGateAndJersey(varRc)
 ; MsgBox,,, % returnedArray[0]
 
 
@@ -51,7 +51,6 @@ getHkData(rcParam){
 
     InOutData :=
     WinHttpRequest(url_get, InOutData := "", InOutHeaders := Headers(), "Timeout: 1`nNO_AUTO_REDIRECT")
-    InOutData := RegExReplace(InOutData, "<script>.*DATA>")
     InOutData := RegExReplace(InOutData, "<script>.*DATA>")
     url_venue := 
     url_venue := InOutData
@@ -224,13 +223,7 @@ errorHorseList := whr.ResponseText
 return errorHorseList
 }
 
-
-
-
-
 ;=================================================================================================================================== getHsNumAndGateAndJersey
-
-
 
 getHsNumAndGateAndJersey(rcParam) {
 
@@ -258,7 +251,7 @@ getHsNumAndGateAndJersey(rcParam) {
 RegExMatch(url_venue, "s)<div class=""race-table"">(.*)<table class=""remarks"">", data2)
 FileCreateDir, Jersey
 
-loop, 3
+loop, 5
     {
     RegExMatch(data2, "s)""horse_number"">(?P<hseNum>" A_Index ")</td>", field3_)
     StringReplace, data2, data2, % field3_, 
@@ -280,82 +273,13 @@ loop, 3
         }
         
 ; MsgBox, ,array all, % horseNumAndGateAndJersey
-MsgBox, ,array gate, % horseNumAndGateAndJersey[A_Index].gate 
-MsgBox, ,array code, % horseNumAndGateAndJersey[A_Index].code
+MsgBox, ,array gate, % a_index "`t" horseNumAndGateAndJersey[A_Index].gate "`t" horseNumAndGateAndJersey[A_Index].code
     }
 ; MsgBox, ,array gate, % horseNumAndGateAndJersey[A_Index].gate 
 ; MsgBox, ,array code, % horseNumAndGateAndJersey[A_Index].code
 MsgBox, , return array, Done, .5
 return horseNumAndGateAndJersey
 }
-
-/*
-
-
-
-getHsNumAndGateAndJersey(rcParam) {
-
-    horseNumAndGateAndJersey := {}
-
-    url_get := "https://www.scmp.com/sport/racing/racecard/" . rcParam
-
-    ; Fetch webpage content
-    WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-    WebRequest.Open("GET", url_get, false)
-    WebRequest.SetTimeouts(1000, 1000, 1000, 1000)
-    WebRequest.Send()
-    InOutData := WebRequest.ResponseText
-
-    ; Remove script tags cautiously (non-greedy)
-    InOutData := RegExReplace(InOutData, "<script[^>]*?>.*?</script>", "", "s")
-
-    ; Extract race table data block between <div class="race-table"> and <table class="remarks">
-    if !RegExMatch(InOutData, "s)<div class=`"race-table`">(.*?)<table class=`"remarks`">", data_match) {
-        MsgBox, Could not find race table data
-        return horseNumAndGateAndJersey
-    }
-
-    data2 := data_match1
-
-    ; Regex to match each horse's info block iteratively
-    pos := 1
-    Loop {
-        ; Match horse block (horse number, horse code, gate)
-        if !RegExMatch(data2, "s)<td[^>]*class=`"horse_number`">(\d+)</td>.*?/sport/racing/stats/horses/(\d+).*?<td align=`"center`">(\d+)</td>", match, pos) {
-            break
-        }
-
-        hseNum := match1
-        hsCode := match2
-        gate := match3
-
-        ; Store in object
-        horseNumAndGateAndJersey[hseNum] := {"gate": gate, "jersey": hsCode}
-
-        pos := match.Pos + StrLen(match.Value)
-    }
-
-    return horseNumAndGateAndJersey
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ;=================================================================================================================================== reload
 
