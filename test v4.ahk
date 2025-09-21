@@ -1,13 +1,14 @@
 
 
-varRc := 2
+varRc := 5
 
 result := getHsNumAndGateAndJersey(varRc)
 for horseNum, details in result
 {
     gate := details.gate
     code := details.code
-    MsgBox, Horse Number: %horseNum%`nGate: %gate%`nCode: %code%
+    rider := details.rider
+    MsgBox, Horse Number: %horseNum%`nGate: %gate%`nCode: %code%`nRider: %rider%
 }
 
 
@@ -36,7 +37,7 @@ getHsNumAndGateAndJersey(rcParam) {
 RegExMatch(InOutData, "s)<div class=""race-table"">(.*)<table class=""remarks"">", data2)
 FileCreateDir, Jersey
 
-loop, 5
+loop, 14
     {
     RegExMatch(data2, "s)""horse_number"">(?P<hseNum>" A_Index ")</td>", field3_)
     StringReplace, data2, data2, % field3_, 
@@ -47,9 +48,18 @@ loop, 5
     RegExMatch(data2, "s)<td align=""center"">(?P<gate>\d+)</td><td align=""center"" class=""overnight_win_odds"">", field5_)
     StringReplace, data2, data2, % field5_, 
     
+    RegExMatch(data2, "s)<a href=""/sport/racing/stats/jockey/\d+/(?P<rider>.*?)<", field5_)
+    ; msgbox, % field5_rider
+    StringReplace, data2, data2, % field5_, 
+    StringSplit, namefield, field5_rider, "
+    ; msgbox, % namefield1
+
+
+
+
     if (field3_hsenum > 0)
         {
-        horseNumAndGateAndJersey[field3_hsenum] := {"gate":field5_gate,"code":field4_hsCode}
+        horseNumAndGateAndJersey[field3_hsenum] := {"gate":field5_gate,"code":field4_hsCode,"rider":namefield1}
         }
         
     }
