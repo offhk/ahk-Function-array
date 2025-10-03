@@ -90,6 +90,7 @@ loop, 14
         }
         
     }
+    
 return horseNumAndGateAndJersey
 }
 
