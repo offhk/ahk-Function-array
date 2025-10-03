@@ -1,10 +1,10 @@
 
-#Include C:\Program Files\AutoHotkey\Lib\JSON.ahk ; Include JSON library
+#SingleInstance force
 #NoEnv
 #Persistent
 SendMode Input
 
-#SingleInstance force
+#Include C:\Program Files\AutoHotkey\Lib\JSON.ahk ; Include JSON library
 #Include <JSON>
 FileRemoveDir, Jersey, 1
 
@@ -252,36 +252,6 @@ Gui, %guiId%:Add, Radio, wp+0 hp+0 xp+40 yp+0 vcol_12  gcol_show12 cwhite, 12
 Gui, %guiId%:Add, Radio, wp+0 hp+0 xp+40 yp+0 vcol_13  gcol_show13 cwhite, 13    ;.....not shown if 2 horses
 Gui, %guiId%:Add, Radio, wp+0 hp+0 xp+40 yp+0 vcol_14  gcol_show14 cwhite, 14    ;.....not shown if 2 horses
 
-; Gui, %guiId%:Add, Edit, cwhite  vsite_odd_venue +Center  w40 h20 xp+50 yp-3, Vne
-
-; Gui, %guiId%:Font, s8
-; Gui, %guiId%:Add, Radio, cwhite vserver1  +Center w70 h15 xp+60 yp+3 checked, 168com
-; Gui, %guiId%:Add, Radio, cwhite vserver2  +Center w65 hp+0 xp+80 yp+0, 168net
-; Gui, %guiId%:Add, Radio, cwhite vserver3  +Center w68 hp+0 xp+80 yp+0, kle009
-; Gui, %guiId%:Add, Radio, cwhite vserver4  +Left w65 hp+0 xp+85 yp+0, lk988
-; Gui, %guiId%:Add, Radio, cwhite vserver5  +Left w75 hp+0 xp+70 yp+0, ctcom
-; Gui, %guiId%:Add, Radio, cwhite vserver6  +Left w75 hp+0 xp+70 yp+0, ctnet
-; Gui, %guiId%:Add, Progress, cred vprogressStatus Backgroundlime Range0-50 w40 hp+0 xp+80 yp+0,  
-; Gui, %guiId%:Add, Checkbox, cwhite vshowOutsider w80 w100 hp+0 xp+60 yp+0 , Outsider  
-
-; Gui, %guiId%:Font, s10 wbold, Arial
-; Gui, %guiId%:Add, Edit, cwhite  vsite_date +Center  w40 h22 x30 yp+25, 
-; Gui, %guiId%:Add, Edit, cwhite  vsite_venue +Center  w40 hp+0 xp+50 yp+0, %citiKod%
-; Gui, %guiId%:Add, Text, cwhite   +Center  w20 hp+0 xp+50 yp+2, Rc
-; Gui, %guiId%:Add, ComboBox, vsite_race +Center  w40 xp+20 yp-3, %combo_num%
-
-; Gui, %guiId%:Add, Radio, cwhite vhk_get_info_radio gget_hk_data +Center w55 hp+0 xp+70 yp+2, Start
-; Gui, %guiId%:Add, Checkbox, cwhite w80 hp+0 xp+80 yp+0 vselectionAuto  checked, Auto 
-
-; Gui, %guiId%:Font, s10 wbold, Arial
-; Gui, %guiId%:Add, Button, grerun +Center w80 h20 xp+100 yp+0, NewGui
-; Gui, %guiId%:Add, Button, ge_xit +Center w40 h20 xp+85 yp+0, X
-
-; Gui, %guiId%:Font, s14 wbold, Arial
-; Gui, %guiId%:Add, Edit, cyellow  voutsidetextbar +Center  w250 h25 xp+55 yp+0, 
-; Gui, %guiId%:Font, s16 wbold, Arial
-; Gui, %guiId%:Add, Edit, cyellow  vtv_data +Left  w800 h22 xp+260 yp+0 -E0x200 -VScroll, 
-
 Gui, %guiId%:Font, s10 wbold, Arial
 Gui, %guiId%:Add, Edit, cwhite  vsite_dd +Center  w25 h22 xp+60 yp+0,
 Gui, %guiId%:Add, Edit, cwhite  vsite_mm +Center  w25 h22 xp+26 yp+0, 
@@ -296,7 +266,6 @@ Gui, %guiId%:Add, Edit, cwhite  vsite_venue +Center  w40 hp+0 x20 yp+25, %citiKo
 Gui, %guiId%:Add, Text, cwhite   +Center  w20 hp+0 xp+42 yp+2, Rc
 Gui, %guiId%:Add, ComboBox, vsite_race +Center  w40 xp+20 yp-3, %combo_num%
 
-; Gui, %guiId%:Add, Radio, cwhite ggetStatus +Center w50 hp+0 xp+45 yp+2, Start
 Gui, %guiId%:Add, Radio, cwhite gget_hk_data +Center w50 hp+0 xp+45 yp+2, Start
 Gui, %guiId%:Add, Checkbox, cwhite w50 hp+0 xp+55 yp+0 vselectionAuto  checked, Auto 
 
@@ -620,17 +589,6 @@ else if (field2_dist >= 1800)
    GuiControl, %guiId%:Font, tv_data
    }
 
-;=================================================================================================================================== get errhorse
-
-; errorHorseListURL := "https://docs.google.com/spreadsheets/d/e/2PACX-1vQUzYHuycnwsFix3k4v76cPIiNJQhlBvTVqj7LoHhsiq44KsEl4X4AQCEBxOGn2ibMp31D0fVLyjSDH/pub?gid=0&single=true&output=csv"
-; ; errorHorseListURL := "https://docs.google.com/spreadsheets/d/1gCXp8InLhB85mRZZiaLvKLytYAgW8ZmAgHMKzoYBOYU/export?format=csv"
-; whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-; whr.Open("GET", errorHorseListURL, true)
-; whr.Send()
-; whr.WaitForResponse()
-; errorHorseList := ""
-; errorHorseList := whr.ResponseText
-
 ;=================================================================================================================================== get outsider
 
 ; outsider_url := "https://docs.google.com/spreadsheets/d/1Gy5WU_Debw-RGS2-25qgY1y83Ihk11YLnqpJy8g0Vuw/export?format=csv&gid=349905629"
@@ -730,7 +688,8 @@ loop, %total_hs_number%
       StringReplace, data2, data2, % field4_, 
       if (field3_hsenum > 0)
          {
-         URLDownloadToFile, https://racing.hkjc.com/racing/content/Images/RaceColor/%field4_hsCode%.gif, %A_ScriptDir%\jersey\jersey%field4_hsCode%.gif
+         ; URLDownloadToFile, https://racing.hkjc.com/racing/content/Images/RaceColor/%field4_hsCode%.gif, %A_ScriptDir%\jersey\jersey%field4_hsCode%.gif
+         URLDownloadToFile, https://racing.hkjc.com/racing/content/Images/RaceColor/%field4_hsCode%.gif, %A_ScriptDir%\jersey\%field4_hsCode%.gif
 
          RegExMatch(data2, "s)<td align=""center"">(?P<br>\d+)</td><td align=""center"" class=""overnight_win_odds"">", field5_)
          StringReplace, data2, data2, % field5_, 
@@ -740,7 +699,8 @@ loop, %total_hs_number%
          ; field5_ = rider
          ; MsgBox, , Show field, % "field3 (horse number value) = " field3_hsenum "`n`nfield4 (horse code number) = " field4_ "`n`nfield5 (rider) = " field5_ ,
 
-         GuiControl, %guiId%:, %field5_br%pic, %A_ScriptDir%\jersey\jersey%field4_hsCode%.gif
+         ; GuiControl, %guiId%:, %field5_br%pic, %A_ScriptDir%\jersey\jersey%field4_hsCode%.gif
+         GuiControl, %guiId%:, %field5_br%pic, %A_ScriptDir%\jersey\%field4_hsCode%.gif
          GuiControl, %guiId%:, %field5_br%horse_number, %field3_hsenum%
          GuiControl, %guiId%:, %field5_br%jerseyNum, %field3_hsenum%
 
@@ -1204,7 +1164,7 @@ loop, % hseCntt
 if (selectionAuto = 1)
    {
    ; msgbox  selectionAuto = 0
-   Control, Uncheck ,, Button22, BlackBoard_%showHorseCount%
+   Control, Uncheck ,, Button16, BlackBoard_%showHorseCount%
 
    ; fill remaining horse number box without any bet ticket
    ; if (showOutsider = 1)
@@ -1593,12 +1553,6 @@ return
 ;  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ;  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-`::     ;tilde key - start hypercam recording
-send, {NumpadMult}
-return
-
-;===================================================================================================================================
-
 1::     ;tab key - change color for barrier open
 ; NumpadSub::
 if (color_ready = 0)
@@ -1617,11 +1571,8 @@ return
 ;  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ;  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-Pause::
-Pause
-return
-
 rerun:
+FileRemoveDir, Jersey, 1
 Reload
 return
 
@@ -1629,10 +1580,6 @@ return
 e_xit:
 FileRemoveDir, Jersey, 1
 ExitApp
-return
-
-PrintScreen::
-Gui, %guiId%: Show, x0 y0 w1920, BlackBoard_%total_hs_number%
 return
 
 ;  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
