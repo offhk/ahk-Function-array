@@ -37,8 +37,14 @@ getserver := "riding168.com"
 site_dd_mm_yy := "04-10-2025"
 site_venue := "3H"
 
-tktBetArray := {}
-tktEatArray := {}
+tktBetArrayWW := {}
+tktEatArrayWW := {}
+
+tktBetArrayWP := {}
+tktEatArrayWP := {}
+
+tktBetArrayPP := {}
+tktEatArrayPP := {}
 
 URLb := "https://datas.*/betdata?race_date=@&race_type=#&rc=$&m=HK&c=2&lu=0"
 
@@ -89,7 +95,7 @@ Loop, 23
             else
                 {
                 ; msgbox,,, done, .2
-                tktBetArray := { (hsenum): { prc_lmt: ww_bet } }
+                tktBetArrayWW := { (hsenum): { prc_lmt: ww_bet } }
                 break   
                 }           
             }
@@ -109,13 +115,13 @@ Loop, 23
             else
                 {
                 ; msgbox,,, done, .2
-                tktEatArray := { (hsenum): { prc_lmt: ww_eat } }
+                tktEatArrayWW := { (hsenum): { prc_lmt: ww_eat } }
                 break   
                 }           
             }  
 
 
-            MsgBox,,arraytest, % hsenum " : " prc_lmt "`n`n" tktEatArray[hsenum].prc_lmt
+            MsgBox,,arraytest, % hsenum " : " prc_lmt "`n`n" tktEatArrayWW[hsenum].prc_lmt
 
 
 
@@ -126,16 +132,9 @@ Loop, 23
 
 }
 
-; loop, 23
-; {
-; RegExMatch(eathtml, "s)\\n(\d+)\\t(" hsenum ")\\t(\d|\d+)\\t([^1-9])\\t(" prc_lmt ")\\t", s_tkt)
-;          if(s_tkt3 != "")
-;          {
-;         msgbox,,, % prc_lmt "`n" s_tkt, 
-;          }
-; }
 
-; return pendingDataArray
+
+return pendingDataArray
 }
 
 ;=================================================================================================================================== reload
