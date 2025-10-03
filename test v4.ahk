@@ -1,20 +1,41 @@
 
 
-varRc := 5
+f1::
+
+varRc := 1
 
 result := getHsNumAndGateAndJersey(varRc)
 for horseNum, details in result
-{
+    {
     gate := details.gate
     code := details.code
     rider := details.rider
-    MsgBox, Horse Number: %horseNum%`nGate: %gate%`nCode: %code%`nRider: %rider%
-}
+    pace := details.pace
+    MsgBox, Horse Number: %horseNum%`nGate: %gate%`nCode: %code%`nRider: %rider%`nPace: %pace%
+    }
 
+;---------------------------------------------------------------------------------------------------------------------
 
+msgbox, Completed
+exitApp
 return
 
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 getHsNumAndGateAndJersey(rcParam) {
+
+    hcodeurl := "https://docs.google.com/spreadsheets/d/e/2PACX-1vQUzYHuycnwsFix3k4v76cPIiNJQhlBvTVqj7LoHhsiq44KsEl4X4AQCEBxOGn2ibMp31D0fVLyjSDH/pub?gid=660322945&single=true&output=csv"
+
+    whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    whr.Open("GET", hcodeurl, true)
+    whr.Send()
+    whr.WaitForResponse()
+    hseCodeList := ""
+    hseCodeList := whr.ResponseText
+    ; msgbox,,, % hseCodeList, 
+
 
    horseNumAndGateAndJersey := {}
 
@@ -55,13 +76,21 @@ loop, 14
     ; msgbox, % namefield1
 
 
+    RegExMatch(hseCodeList, "s)(" field4_hsCode ")\,(?P<pace>.*?)\s", field6_)
+    ; msgbox,,pace, %pace_% `n%A_index% `n%field4_hsCode% `n%pace_2%,
 
 
     if (field3_hsenum > 0)
         {
-        horseNumAndGateAndJersey[field3_hsenum] := {"gate":field5_gate,"code":field4_hsCode,"rider":namefield1}
+        horseNumAndGateAndJersey[field3_hsenum] := {"gate":field5_gate,"code":field4_hsCode,"rider":namefield1,"pace":field6_pace}
         }
         
     }
 return horseNumAndGateAndJersey
 }
+
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+alt & esc::reload
