@@ -206,23 +206,25 @@ Loop, 23
 
 
 
-for key1, val1 in myarray
-{
-    for key2, val2 in val1
-    {
-        for key3, val3 in val2
-        {
-            ; val3 is an object with keys "ww", "wp", etc.
-            for subkey, subval in val3
-            {
-                ; subval is an array containing one element each
-                MsgBox % "myarray[" key1 "][" key2 "][" key3 "][" subkey "] = " subval[1]
-            }
-        }
-    }
-}
+; for key1, val1 in myarray
+; {
+;     for key2, val2 in val1
+;     {
+;         for key3, val3 in val2
+;         {
+;             ; val3 is an object with keys "ww", "wp", etc.
+;             for subkey, subval in val3
+;             {
+;                 ; subval is an array containing one element each
+;                 MsgBox % "myarray[" key1 "][" key2 "][" key3 "][" subkey "] = " subval[1]
+;             }
+;         }
+;     }
+; }
 
-
+msgbox,,, % myarray[1][78]["eat"]["ww"][1]  "`n" 
+. myarray[1][78]["eat"]["wp"][1] "`n" 
+. myarray[1][78]["eat"]["pp"][1]
 
 return myarray
 }
